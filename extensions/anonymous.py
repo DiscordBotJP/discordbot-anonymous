@@ -1,9 +1,10 @@
-import traceback
 import discord
 from discord import app_commands
 from discord.ext import commands
 from daug.utils.dpyexcept import excepter
 from daug.utils.dpylog import dpylogger
+from utils.ops_log import emit_component_error
+from utils.ops_log import emit_modal_error
 
 
 class SecretPostModal(discord.ui.Modal, title='匿名でメッセージを投稿する'):
@@ -38,13 +39,24 @@ class SecretPostModal(discord.ui.Modal, title='匿名でメッセージを投稿
             pass
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
-        await interaction.followup.send('エラーが発生しました', ephemeral=True)
-        traceback.print_exception(type(error), error, error.__traceback__)
+        await emit_modal_error(
+            interaction,
+            error,
+            title='Anonymous post modal failed',
+        )
 
 
 class SecretPostButton(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
+
+    async def on_error(
+        self,
+        interaction: discord.Interaction,
+        error: Exception,
+        item: discord.ui.Item,
+    ) -> None:
+        await emit_component_error(interaction, error, item)
 
     @excepter
     @dpylogger

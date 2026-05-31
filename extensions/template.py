@@ -7,6 +7,7 @@ from discord.ext import commands
 from daug.utils.dpyexcept import excepter
 from daug.utils.dpylog import dpylogger
 from daug.constants import COLOUR_EMBED_GRAY
+from utils.ops_log import emit_component_error
 
 jst = datetime.timezone(datetime.timedelta(hours=9))
 
@@ -27,6 +28,14 @@ def compose_embed(text: str, user: discord.Member):
 class TemplateMessageButton(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
+
+    async def on_error(
+        self,
+        interaction: discord.Interaction,
+        error: Exception,
+        item: discord.ui.Item,
+    ) -> None:
+        await emit_component_error(interaction, error, item)
 
     @discord.ui.button(label='起床', style=discord.ButtonStyle.green, custom_id='template_message:get_up')
     @excepter
