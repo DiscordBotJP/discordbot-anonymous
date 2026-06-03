@@ -67,6 +67,8 @@ Discord Bot JP の先行公開では、この repo は `discordbot-anonymous` �
 | Name | Required | Description |
 | --- | --- | --- |
 | `DISCORD_BOT_TOKEN` | Yes | Discord Bot token |
+| `CHANNEL_LOG_ID` | Yes | Daug command/component log channel ID |
+| `CHANNEL_TRACEBACK_ID` | Yes | Daug traceback/error log channel ID |
 | `OPS_LOG_HUB_URL` | No | ops-log-hub ingest endpoint |
 | `OPS_LOG_HUB_KEY` | No | ops-log-hub ingest key |
 | `OPS_LOG_PROJECT` | No | ops-log project name. Default: `discordbot-anonymous` |
