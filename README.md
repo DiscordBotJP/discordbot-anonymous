@@ -64,15 +64,15 @@ Discord Bot JP の先行公開では、この repo は `discordbot-anonymous` �
 
 ## 環境変数
 
-| Name | Required | Description |
+| 変数 | 必須 | 説明 |
 | --- | --- | --- |
-| `DISCORD_BOT_TOKEN` | Yes | Discord Bot token |
-| `CHANNEL_LOG_ID` | Yes | Daug command/component log channel ID |
-| `CHANNEL_TRACEBACK_ID` | Yes | Daug traceback/error log channel ID |
-| `OPS_LOG_HUB_URL` | No | ops-log-hub ingest endpoint |
-| `OPS_LOG_HUB_KEY` | No | ops-log-hub ingest key |
-| `OPS_LOG_PROJECT` | No | ops-log project name. Default: `discordbot-anonymous` |
-| `OPS_LOG_ENVIRONMENT` | No | `production` / `development` など |
+| `DISCORD_BOT_TOKEN` | はい | Discord Bot token |
+| `CHANNEL_LOG_ID` | はい | Daug command/component log channel ID |
+| `CHANNEL_TRACEBACK_ID` | はい | Daug traceback/error log channel ID |
+| `OPS_LOG_HUB_URL` | いいえ | ops-log-hub 送信先 |
+| `OPS_LOG_HUB_KEY` | いいえ | ops-log-hub 送信用 key |
+| `OPS_LOG_PROJECT` | いいえ | ops-log project 名。既定値: `discordbot-anonymous` |
+| `OPS_LOG_ENVIRONMENT` | いいえ | `production` / `development` など |
 
 ## 必要権限・Intents
 
@@ -91,17 +91,17 @@ Message Content Intent と Voice States Intent は不要です。
 | 匿名投稿ボタン | Manage Channels | View Channel, Send Messages, Manage Messages, Use Slash Commands | Guilds |
 | テンプレメッセージボタン | Manage Channels | View Channel, Send Messages, Manage Messages, Manage Webhooks, Use Slash Commands | Guilds |
 
-## Ops logging
+## 運用ログ
 
 `OPS_LOG_HUB_URL` と `OPS_LOG_HUB_KEY` が設定されている場合のみ、以下のイベントを ops-log-hub に送信します。
 
 - `startup`: Bot 起動完了
-- `config_error`: extension load / command sync の失敗
+- `config_error`: extension 読み込み / command 同期の失敗
 - `command_error`: slash command、ボタン、モーダル処理の失敗
 
 ログには投稿本文や secret 値は含めず、guild/channel ID など調査に必要な最小限の情報だけを入れます。
 
-## Local run
+## ローカル実行
 
 ```bash
 cp .env.example .env
